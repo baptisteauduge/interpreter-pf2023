@@ -1,0 +1,7 @@
+_build/
+
+#VSCode
+.vscode/
+
+#OSX
+.DS_Store

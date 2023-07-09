@@ -1,0 +1,4 @@
+(library
+ (name pf23)
+ (public_name pf23)
+)
