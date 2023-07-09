@@ -1,4 +1,4 @@
 (tests
- (names test_elements test_stack test_calculator)
+ (names test_elements test_stack test_calculator test_dict)
  (libraries pf23)
 )
