@@ -31,6 +31,7 @@ type element =
   | IF
   | THEN
   | ELSE
+  | ENDIF
   | COLON
   | SEMICOLON
 
@@ -61,6 +62,7 @@ let to_string (e: element): string =
   | IF -> "IF"
   | THEN -> "THEN"
   | ELSE -> "ELSE"
+  | ENDIF -> "ENDIF"
   | BOOL true -> "TRUE"
   | BOOL false -> "FALSE"
   | COLON -> ":"
@@ -83,6 +85,7 @@ let to_element (s: string): element =
   | "IF" -> IF
   | "THEN" -> THEN
   | "ELSE" -> ELSE
+  | "ENDIF" -> ENDIF
   | "TRUE" -> BOOL true
   | "FALSE" -> BOOL false
   | ":" -> COLON
