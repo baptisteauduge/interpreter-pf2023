@@ -49,8 +49,8 @@ let eval_aop (s: stack) (op: Elements.arithmetic_operators): stack =
   in
 
   match op with
-  | PLUS -> eval_aop_aux s (+)
-  | MINUS -> eval_aop_aux s (-)
+  | ADD -> eval_aop_aux s (+)
+  | LESS -> eval_aop_aux s (-)
   | TIMES -> eval_aop_aux s ( * )
   | DIVIDE -> eval_aop_aux s (/)
 

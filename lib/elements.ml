@@ -1,6 +1,6 @@
 type arithmetic_operators = 
-  | PLUS
-  | MINUS
+  | ADD
+  | LESS
   | TIMES
   | DIVIDE
 
@@ -48,8 +48,8 @@ let to_string (e: element): string =
   | SOP DROP -> "DROP"
   | SOP SWAP -> "SWAP"
   | SOP ROT -> "ROT"
-  | AOP PLUS -> "+"
-  | AOP MINUS -> "-"
+  | AOP ADD -> "+"
+  | AOP LESS -> "-"
   | AOP TIMES -> "*"
   | AOP DIVIDE -> "/"
   | COP EQUAL -> "="
@@ -72,8 +72,8 @@ let to_element (s: string): element =
   | "DROP" -> SOP DROP
   | "SWAP" -> SOP SWAP
   | "ROT" -> SOP ROT
-  | "+" -> AOP PLUS
-  | "-" -> AOP MINUS
+  | "+" -> AOP ADD
+  | "-" -> AOP LESS
   | "*" -> AOP TIMES
   | "/" -> AOP DIVIDE
   | "=" -> COP EQUAL
