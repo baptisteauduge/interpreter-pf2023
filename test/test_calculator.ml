@@ -14,3 +14,4 @@ assert ((Pf23.Calculator.calc [] [INT 2; INT 2; COP GT]) = [BOOL false]) ;;
 assert ((Pf23.Calculator.calc [] [INT 2; INT 2; COP EQUAL]) = [BOOL true]) ;;
 assert ((Pf23.Calculator.calc [] [INT 2; INT 2; COP DIFF]) = [BOOL false]) ;;
 assert ((Pf23.Calculator.calc [] [BOOL true; INT 2; INT 2; COP DIFF]) = [BOOL false; BOOL true]) ;;
+assert ((Pf23.Calculator.calc [] []) = []) ;;
