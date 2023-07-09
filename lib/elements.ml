@@ -35,6 +35,12 @@ type element =
   | SEMICOLON
 
 type program = element list
+let other_accepted_separators: char list = ['\r'; '\n'; '\t']
+
+let convert_other_accepted_separators (c: char): char =
+  let is_accepted_separator (c: char): bool =
+    List.mem c other_accepted_separators in
+  if is_accepted_separator c then ' ' else c
 
 let to_string (e: element): string =
   match e with
@@ -89,7 +95,8 @@ let to_element (s: string): element =
     end
 
 let parse (input: string): program =
-  let split_string: string list = String.split_on_char ' ' input in
+  let space_string: string = String.map convert_other_accepted_separators input in
+  let split_string: string list = String.split_on_char ' ' space_string in
   let rec parse_aux (l: string list) (acc: element list) =
     match l with
     | [] -> List.rev acc
