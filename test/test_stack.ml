@@ -16,12 +16,12 @@ assert (
 (* eval_aop *)
 assert ((Pf23.Stack.eval_aop [INT 1; INT 2] ADD) = [INT 3]) ;;
 assert ((Pf23.Stack.eval_aop [INT 1; INT 2; INT 44] ADD) = [INT 3; INT 44]) ;;
-assert ((Pf23.Stack.eval_aop [INT 1; INT 2] LESS) = [INT (-1)]) ;;
-assert ((Pf23.Stack.eval_aop [INT 1; INT 2; INT 10] LESS) = [INT (-1); INT 10]) ;;
+assert ((Pf23.Stack.eval_aop [INT 1; INT 2] LESS) = [INT 1]) ;;
+assert ((Pf23.Stack.eval_aop [INT 1; INT 2; INT 10] LESS) = [INT 1; INT 10]) ;;
 assert ((Pf23.Stack.eval_aop [INT 1; INT 3] TIMES) = [INT 3]) ;;
 assert ((Pf23.Stack.eval_aop [INT 1; INT 3; INT 5; INT 10] TIMES) = [INT 3; INT 5; INT 10]) ;;
-assert ((Pf23.Stack.eval_aop [INT 1; INT 2] DIVIDE) = [INT 0]) ;;
-assert ((Pf23.Stack.eval_aop [INT 1; INT 2; INT 3] DIVIDE) = [INT 0; INT 3]) ;;
+assert ((Pf23.Stack.eval_aop [INT 2; INT 1] DIVIDE) = [INT 0]) ;;
+assert ((Pf23.Stack.eval_aop [INT 2; INT 1; INT 3] DIVIDE) = [INT 0; INT 3]) ;;
 
 (* eval_sop *)
 assert ((Pf23.Stack.eval_sop [INT 1] DUP) = [INT 1; INT 1]) ;;
@@ -66,16 +66,16 @@ assert ((
     | _ -> false
   with Failure error when error = Pf23.Stack.empty_stack_error -> true
 )) ;;
-assert ((Pf23.Stack.eval_cop [INT 1; INT 2] LT) = [BOOL true]) ;;
-assert ((Pf23.Stack.eval_cop [INT 2; INT 1] LT) = [BOOL false]) ;;
+assert ((Pf23.Stack.eval_cop [INT 1; INT 2] LT) = [BOOL false]) ;;
+assert ((Pf23.Stack.eval_cop [INT 2; INT 1] LT) = [BOOL true]) ;;
 assert ((
   try 
     match Pf23.Stack.eval_cop [INT 1] LT with
     | _ -> false
   with Failure error when error = Pf23.Stack.empty_stack_error -> true
 )) ;;
-assert ((Pf23.Stack.eval_cop [INT 1; INT 2] GT) = [BOOL false]) ;;
-assert ((Pf23.Stack.eval_cop [INT 2; INT 1] GT) = [BOOL true]) ;;
+assert ((Pf23.Stack.eval_cop [INT 2; INT 1] GT) = [BOOL false]) ;;
+assert ((Pf23.Stack.eval_cop [INT 1; INT 2] GT) = [BOOL true]) ;;
 assert ((
   try 
     match Pf23.Stack.eval_cop [INT 1] GT with
@@ -93,18 +93,18 @@ assert ((
 
 (* step *)
 assert ((Pf23.Stack.step [INT 1; INT 2] (AOP ADD)) = [INT 3]) ;;
-assert ((Pf23.Stack.step [INT 1; INT 2] (AOP LESS)) = [INT (-1)]) ;;
+assert ((Pf23.Stack.step [INT 2; INT 1] (AOP LESS)) = [INT (-1)]) ;;
 assert ((Pf23.Stack.step [INT 1; INT 2] (AOP TIMES)) = [INT 2]) ;;
-assert ((Pf23.Stack.step [INT 1; INT 2] (AOP DIVIDE)) = [INT 0]) ;;
+assert ((Pf23.Stack.step [INT 2; INT 1] (AOP DIVIDE)) = [INT 0]) ;;
 assert ((Pf23.Stack.step [INT 1; INT 2] (SOP DUP)) = [INT 1; INT 1; INT 2]) ;;
 assert ((Pf23.Stack.step [INT 1; INT 2] (SOP DROP)) = [INT 2]) ;;
 assert ((Pf23.Stack.step [INT 1; INT 2] (SOP SWAP)) = [INT 2; INT 1]) ;;
 assert ((Pf23.Stack.step [INT 1; INT 2; INT 5] (SOP ROT)) = [INT 2; INT 5; INT 1]) ;;
 assert ((Pf23.Stack.step [INT 1; INT 2] (COP EQUAL)) = [BOOL false]) ;;
 assert ((Pf23.Stack.step [INT 1; INT 1] (COP EQUAL)) = [BOOL true]) ;;
-assert ((Pf23.Stack.step [INT 1; INT 2] (COP LT)) = [BOOL true]) ;;
-assert ((Pf23.Stack.step [INT 2; INT 1] (COP LT)) = [BOOL false]) ;;
-assert ((Pf23.Stack.step [INT 1; INT 2] (COP GT)) = [BOOL false]) ;;
+assert ((Pf23.Stack.step [INT 2; INT 1] (COP LT)) = [BOOL true]) ;;
+assert ((Pf23.Stack.step [INT 1; INT 2] (COP LT)) = [BOOL false]) ;;
+assert ((Pf23.Stack.step [INT 2; INT 1] (COP GT)) = [BOOL false]) ;;
 
 assert (
   try 

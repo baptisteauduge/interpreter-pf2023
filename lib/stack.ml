@@ -24,7 +24,7 @@ let eval_cop (s: stack) (op: Elements.compare_operators) =
     | (INT val1, s) ->
       begin
         match pop s with
-        | (INT val2, s) -> (BOOL (op val1 val2))::s
+        | (INT val2, s) -> (BOOL (op val2 val1))::s
         | _ -> invalid_arg "eval_stack_cop"
       end
     | _ -> invalid_arg "eval_stack_cop"
@@ -42,7 +42,7 @@ let eval_aop (s: stack) (op: Elements.arithmetic_operators): stack =
     | (INT val1, s) ->
       begin
         match pop s with
-        | (INT val2, s) -> (INT (op val1 val2))::s
+        | (INT val2, s) -> (INT (op val2 val1))::s
         | _ -> invalid_arg "eval_stack_aop"
       end
     | _ -> invalid_arg "eval_stack_aop"
