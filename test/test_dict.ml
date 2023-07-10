@@ -15,7 +15,13 @@ assert ((add "ab" prog2 dict1) = [Letter ('a', None, [Letter ('b', Some prog2, [
 (* lookup *)
 assert ((lookup "ab" dict1) = prog1) ;;
 assert ((lookup "ab" [Letter ('a', None, [Letter ('b', Some prog2, [])])]) = prog2) ;;
-assert ((lookup "ab" empty_name_dict_program) = []) ;;
+assert (
+  try lookup "ab" empty_name_dict_program |> fun (_) -> false
+  with Invalid_argument _ -> true
+) ;;
 assert ((lookup "ef" [Letter ('a', None, [Letter ('b', Some prog1, [])]); Letter('e', None, [Letter('f', Some prog2, [])])]) = prog2) ;;
-assert ((lookup "ef" dict1) = []) ;;
-assert ((lookup "e" [Letter ('a', None, [Letter ('b', Some prog1, [])]); Letter('e', None, [Letter('f', Some prog2, [])])]) = []) ;;
+assert (
+  try lookup "ef" dict1 |> fun (_) -> false
+  with Invalid_argument _ -> true
+) ;;
+assert ((lookup "e" [Letter ('a', None, [Letter ('b', Some prog1, [])]); Letter('e', Some [], [Letter('f', Some prog2, [])])]) = []) ;;

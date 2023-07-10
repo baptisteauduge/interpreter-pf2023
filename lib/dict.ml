@@ -3,6 +3,8 @@ type name = string ;;
 type 'a name_dict_node = Letter of (char * 'a option * 'a name_dict) and 
 'a name_dict = 'a name_dict_node list ;;
 
+let no_definition_error = "Trying to use a function that is not defined" ;;
+
 type name_dict_program = Elements.program name_dict ;;
 let empty_name_dict_program: name_dict_program = [] ;;
 
@@ -23,18 +25,19 @@ let rec add (key: name) (value: Elements.program) (dict: name_dict_program) =
   in
   add_aux key 0 (String.length key)
 
+(* If the name is not in the dict, will raise Invalid_arg `no_definition_error` *)
 let rec lookup (key: name) (dict: name_dict_program): Elements.program =
   let rec lookup_aux (key: name) (i: int) (len: int) (dict: name_dict_program): Elements.program =
-    if len = 0 then [] else
+    if len = 0 then invalid_arg no_definition_error else
     match dict with
-    | [] -> []
+    | [] -> invalid_arg no_definition_error
     | Letter(c, v, d)::rest ->
       begin
         if c = key.[i] then
           if len = 1 then
             begin
               match v with
-              | None -> []
+              | None -> invalid_arg no_definition_error
               | Some v -> v
             end
           else 
