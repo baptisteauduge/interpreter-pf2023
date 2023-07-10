@@ -3,6 +3,7 @@ type stack_elements =
   | BOOL of bool
 
 type stack = stack_elements list
+let empty_stack: stack = []
 let empty_stack_error: string = "Empty stack"
 
 let push (s: stack) (value: stack_elements) =

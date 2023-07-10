@@ -1,3 +1,5 @@
+open Print
+
 type name = string ;;
 
 type 'a name_dict_node = Letter of (char * 'a option * 'a name_dict) and 
@@ -47,4 +49,21 @@ let rec lookup (key: name) (dict: name_dict_program): Elements.program =
       end
   in
   lookup_aux key 0 (String.length key) dict
+
+let print_name_dict (dict: name_dict_program) =
+  let rec print_name_dict_aux (dict: name_dict_program) (acc: string) =
+    match dict with
+    | [] -> ()
+    | Letter(c, v, d)::rest ->
+      begin
+        match v with
+        | None -> print_name_dict_aux d (acc ^ (String.make 1 c)); print_name_dict_aux rest acc
+        | Some v ->
+          print_string (acc ^ (String.make 1 c) ^ " -> " );
+          print_string "\t\t";
+          print_program v;
+          print_name_dict_aux d (acc ^ (String.make 1 c)); print_name_dict_aux rest acc
+      end
+  in
+  print_name_dict_aux dict ""
 
