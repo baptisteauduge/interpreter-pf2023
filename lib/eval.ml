@@ -68,9 +68,9 @@ let eval_if_else (s: stack) (program: program): (stack * program) =
       (rest_stack, (List.rev else_prog) @ rest)
   | _ -> invalid_arg invalid_if_else
 
-let rec eval (dict: name_dict_program) (s: stack) (program: program): stack =
+let rec eval (dict: name_dict_program) (s: stack) (program: program): (name_dict_program * stack) =
   match program with
-  | [] -> s
+  | [] -> dict, s
   | COLON::rest -> insert_new_func dict rest |> fun (new_dict, rest) -> eval new_dict s rest
   (* Si on croise une semicolon ici, c'est qu'il y a une erreur de syntaxe *)
   | SEMICOLON::_ -> invalid_arg unexpected_semicolon

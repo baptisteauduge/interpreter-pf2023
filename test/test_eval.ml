@@ -51,14 +51,16 @@ assert (
 let program3_str = ": CARRE DUP * ; 2 CARRE 4 CARRE +"
 let program3 = parse program3_str ;;
 assert (
-  (eval empty_name_dict_program [] program3)
-  = [INT 20]
+  match (eval empty_name_dict_program [] program3) with
+  | _, [INT 20] -> true
+  | _ -> false
 );;
 let program4_str = ": FACT DUP 1 > IF DUP 1 - FACT * THEN ; 6 FACT" ;;
 let program4 = parse program4_str ;;
 assert (
-  (eval empty_name_dict_program [] program4)
-  = [INT 720]
+  match (eval empty_name_dict_program [] program4) with
+  | _, [INT 720] -> true
+  | _ -> false
 ) ;;
 assert (
   try
@@ -68,6 +70,11 @@ assert (
 let program5_str = ": FIB DUP 1 > IF DUP 1 - FIB SWAP 2 - FIB + THEN ; 6 FIB" ;;
 let program5 = parse program5_str ;;
 assert (
-  (eval empty_name_dict_program [] program5)
-  = [INT 8]
+  match (eval empty_name_dict_program [] program5) with
+  | _, [INT 8] -> true
+  | _ -> false
 ) ;;
+assert (eval empty_name_dict_program [] [INT 1; INT 2; AOP ADD] = ([], [INT 3]));;
+assert (eval empty_name_dict_program [] [INT 1; INT 2; AOP LESS] = ([], [INT (-1)]));;
+assert (eval empty_name_dict_program [] [INT 1; INT 2; AOP LESS; INT 3; INT 4; AOP ADD] = ([], [INT 7; INT (-1)]));;
+assert (eval empty_name_dict_program [] [INT 500; INT 10] = ([], [INT 10; INT 500]));;
