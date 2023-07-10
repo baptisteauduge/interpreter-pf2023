@@ -1,4 +1,5 @@
 (tests
- (names test_elements test_stack test_calculator test_dict)
+ (names test_elements test_stack test_calculator test_dict test_eval)
  (libraries pf23)
+ (modes byte exe)
 )
