@@ -99,7 +99,8 @@ let to_element (s: string): element =
 
 let parse (input: string): program =
   let space_string: string = String.map convert_other_accepted_separators input in
-  let split_string: string list = String.split_on_char ' ' space_string in
+  let split_string_multi: string list = String.split_on_char ' ' space_string in
+  let split_string: string list = List.filter ((<>) "") split_string_multi in
   let rec parse_aux (l: string list) (acc: element list) =
     match l with
     | [] -> List.rev acc
